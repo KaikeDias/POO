@@ -4,7 +4,6 @@ function main(){
     let numero = Number(input('Numero: '))
     const vetor = []
 
-    const i = numero
     let soma = 0
     let cont = 0
 
