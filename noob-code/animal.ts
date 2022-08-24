@@ -9,7 +9,7 @@ export default class animal{
         this.idade = i
     }
 
-    public comunicar(): void{
+    protected comunicar(): void{
         console.log("Olá sou da classe mãe")
     }
 }
@@ -22,8 +22,8 @@ class cachorro extends animal{
         this.raca = r
     }
 
-    public comunicar(){
-        console.log("Olá sou da classe filha cachorro")
+    public latir(){
+        super.comunicar()
     }
 }
 
@@ -42,7 +42,7 @@ class pessoa extends animal{
 }
 
 let c1 = new cachorro("cachorro", "bob", 2, "poodle")
-c1.comunicar()
+c1.latir()
 
 let p1 = new pessoa("humano", "marley", 25, "negro")
 p1.comunicar()
