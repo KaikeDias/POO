@@ -1,0 +1,33 @@
+1°) Qual a diferença entre objetos e classes? Exemplifique.
+R- A classe é um planejamento enquanto o objeto seria a materialização daquele planejamento.
+Uma analogia simples seria que a classe é uma receita de bolo enquanto o objeto seria o próprio bolo.
+
+2°) De forma breve, conceitue atributos e métodos. Pesquise e exemplifique um
+exemplo de objeto que possua atributos e métodos (notação livre).
+R- Os atributos são os elementos que definem a estrutura de uma classe, enquanto os metodos são uma sub-rotina executada pelo objeto, são os metodos que determinam o comportamento daquele objeto(Os atributos são análogos a variaveis e os métodos são análogos a funções).
+Ex: Um objeto retangulo que possui os atributos base e altura, e possui o metodo calcularArea() que quando chamado calcula a area do retangulo.
+
+3°)
+peso ----> Sistema de saude
+tipo de CNH ----> Autoescola
+tipo sanguíneo ----> HEMOPI
+habilidade destra ----> Competição de braço de ferro
+percentual de gordura ----> Consulta de um nutricionista
+Saldo em conta ----> Sistema Bancario
+Etinia ----> Sistemas de concursos ou de pesquisa do IBGE
+
+4º) Considerando os objetos Pessoa e Conta:
+a) Seria interessante em um sistema bancário um objeto "conta" possuir uma
+"pessoa" como um atributo interno representando o titular da conta?
+R- Sim, seria interessante o objeto banco possuir um objeto "pessoa" como atributo
+
+b) Olhando no sentido inverso, seria interessante uma pessoa possuir mais de
+uma conta como atributo? Que elemento da programação estruturada melhor
+representaria o conjunto de contas de uma pessoa?
+R- Não, pois dessa forma para cada conta criada pela pessoa um novo atributo deveria ser criado.
+
+5°) Aluno, Funcionario, Professor, Disciplina, Curso.
+
+6º) Em um jogo poderia ter um inimigo a ser derrotado, esse inimigo seria um objeto que possuiria os atributos "nome", "tamanho", "qtdVida", "velocidade" e possuiria os metodos "correr", "atacar", "defender". Além disso poderia ter um objeto para itens, como por exemplo um objeto "espada" possuiria os atributos "forcaAtaque" e "durabilidade".
+
+
