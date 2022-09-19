@@ -1,0 +1,26 @@
+1º) Qual a diferença entre tipagem dinâmica e tipagem estática?
+R- Na tipagem estática o tipo da variável nao pode ser alterado depois da declaração da mesma,geralmente a verificação de tipo é feita durante a compilação. 
+Na linguagem dinâmica a linguagem de programação decide o tipo da variável de acordo com o valor atribuido a ela, e a verificação é feita durante a execução.
+
+2º) Qual o principal problema do uso de tipagem dinâmica?
+R- A tipagem dinâmica acaba perdendo performance na execução, visto que na tipagem estatica durante a execução o código já foi “traduzido” para linguagem máquina e a checagem/tipagem das variáveis já foi feito. 
+Além disso podem ocorrer erros como por exemplo:
+    Se você somar os valores "1 + true" na linguagem javascript o resultado será 2, na tipagem estática não ocorreria esse erro pois essa soma nao seria possivel ja que são de tipos diferentes.
+
+3º) Pesquise um exemplo na internet em que a tipagem dinâmica pode ser
+problemático.
+R- Codigo em javascript:
+    const soma = 1 + '1'
+    O resultado dessa soma será 11
+
+4º) Pesquise e exemplifique com um exemplo porque dizemos que a linguagem C,
+mesmo tendo tipagem estática, possui tipagem fraca.
+R- Na linguagem C é possivel gravar um valor do tipo float e acessar como se fosse um int. Isso é um exemplo de que a linguagem C é de tipagem fraca.
+
+5º) Pesquise e, se encontrar, um exemplo onde o tipo any seria benéfico.
+R- Pode-se utilizar any para declarar uma seção do codigo e contornar as limitações da tipagem,ofertando maior flexibilidade para o programador, como um tipo coringa.
+O tipo any permite abrir mão da segurança provida pelo TS por uma maior flexibilidade; e pode ser usado sempre que não quiser que um valor específico cause erros de type-check. Podendo ser muito bem vindo em um estado de migração gradual.
+
+6º) Poderíamos dizer que a tipagem do TypeScript é fraca por uma variável do tipo
+number aceitar tanto inteiros como ponto flutuante?
+R- Não, a linguagem TypeScript possui tipagem forte, o tipo number apenas engloba ambos os tipos. Entretanto, caso crie uma variavel tipo number inteira ela so podera receber o tipo inteiro.
