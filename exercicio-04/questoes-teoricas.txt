@@ -1,0 +1,14 @@
+1º) Podemos afirmar que haverá um problema de compilação, pois a variável inteira não
+foi inicializada previamente? Justifique.
+R- Sim, porque se não iniciar a variável com algum valor numérico não será possivel fazer operações de adição com aquela variável, ja que por padrão se não atribuir um valor a variável ela fica como undefined.
+Além disso apresentará erro antes da compilação por não ter o "This." antes do nome da variável dentro do metodo.
+
+3º) Justifique o erro de compilação e proponha uma solução.
+R- Pelo fato de ter usado um constructor nessa classe, para atribuir o valor ao atributo volume é necessário passar o valor desejado como um parametro, por exemplo: "new Radio(2)"
+
+4º) Considerando o uso da classe Conta apresentada em aula e seu uso abaixo:
+a. Qual o resultado dos dois "prints"? Justifique sua resposta.
+R-Todos os prints terão o valor 90, isso porque todas as variáveis estão apontando para um unico objeto, então se eu sacar 10 da conta c1 o valor do saldo de todas as variáveis irá mudar, e quando é feita a transferência para c2 o valor não irá alterar ja que c1 e c2 apontam para o mesmo objeto então é como se a pessoa fizesse uma transferência para si mesma.
+
+b. O que acontece com o objeto para o qual a referência c1 apontava?
+R-Como não haverá nenhuma variável apontando para aquele objeto, o GC(Garbage Collector) irá excluir esse objeto.
