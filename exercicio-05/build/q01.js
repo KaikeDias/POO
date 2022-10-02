@@ -1,0 +1,13 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const banco_1 = require("./banco");
+let b = new banco_1.Banco();
+b.inserir(new banco_1.Conta('1', 100));
+b.inserir(new banco_1.Conta('2', 50));
+b.transferir('1', '2', 50);
+b.depositar('2', 500);
+console.log(b.consultar('1').saldo);
+console.log(b.consultar('2').saldo);
+console.log(b.QuantidadeContas());
+console.log(b.depositoTotal());
+console.log(b.mediaSaldos());
