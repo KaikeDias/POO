@@ -12,3 +12,8 @@ R-Todos os prints terão o valor 90, isso porque todas as variáveis estão apon
 
 b. O que acontece com o objeto para o qual a referência c1 apontava?
 R-Como não haverá nenhuma variável apontando para aquele objeto, o GC(Garbage Collector) irá excluir esse objeto.
+
+10º)A abordagem da questão 8 é retornar códigos de erro ou acerto. Já a da questão
+9.f. é desconsiderar a alteração. Quais das duas você acha mais correta?
+Compare com seus códigos escritos em outras disciplinas.
+R- A 8 é mais correta pois nela eu terei o retorno e saberei se a operação ocorreu ou não
