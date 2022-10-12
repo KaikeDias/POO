@@ -1,17 +1,12 @@
 export class Conta{
-    private numero: string
-    private saldo: number
 
-    constructor(numero: string, saldo: number){
-        this.numero = numero
-        this.saldo = saldo
-    }
+    constructor(private numero: string, private saldo: number){}
 
-    public getNumero(): string{
+    get Numero(): string{
         return this.numero;
     }
     
-    public getSaldo(): number{
+    get Saldo(): number{
         return this.saldo;
     }
 
@@ -38,7 +33,7 @@ export class Banco{
     private contas: Conta[] = []
 
     inserir(c: Conta): void{
-        let conta: Conta = this.consultar(c.getNumero())
+        let conta: Conta = this.consultar(c.Numero)
 
         if(conta == null){
             this.contas.push(c)
@@ -51,7 +46,7 @@ export class Banco{
         let contaProcurada!: Conta
 
         for(let c of this.contas){
-            if(c.getNumero() == numero){
+            if(c.Numero == numero){
                 contaProcurada = c
                 break
             }
@@ -64,7 +59,7 @@ export class Banco{
         let indice = -1
 
         for(let i = 0; i < this.contas.length; i++){
-            if(this.contas[i].getNumero() == numero){
+            if(this.contas[i].Numero == numero){
                 indice = i
                 break
             }
@@ -74,7 +69,7 @@ export class Banco{
     }
 
     public alterar(c: Conta): void{
-        let indice = this.consultarIndicie(c.getNumero())
+        let indice = this.consultarIndicie(c.Numero)
 
         if(indice != -1){
             this.contas[indice] = c
@@ -118,7 +113,7 @@ export class Banco{
         let soma = 0
 
         for(let i = 0; i < this.contas.length; i++){
-            soma += this.contas[i].getSaldo()
+            soma += this.contas[i].Saldo
         }
 
         return soma
@@ -130,7 +125,7 @@ export class Banco{
 
     public excluirConta(numero: string): void{
         for(let i = 0; i < this.contas.length; i++){
-            if(this.contas[i].getNumero() == numero){
+            if(this.contas[i].Numero == numero){
                 this.contas.splice(i, 1)
                 break
             }
