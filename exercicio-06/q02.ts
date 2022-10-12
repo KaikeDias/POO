@@ -1,23 +1,19 @@
 class Hora{
-    private horas: number;
-    private minutos: number;
-    private segundos: number;
-
-    constructor(horas: number, minutos: number, segundos: number){
+    constructor(private horas: number, private minutos: number, private segundos: number){
         this.horas = horas;
         this.minutos = minutos;
         this.segundos = segundos;
     }
 
-    public getHora(): number{
+    get Hora(): number{
         return this.horas;
     }
 
-    public getMinuto(): number{
+    get Minuto(): number{
         return this.minutos;
     }
 
-    public getSegundo(): number{
+    get Segundo(): number{
         return this.segundos;
     }
 
@@ -28,7 +24,7 @@ class Hora{
 
 let hora: Hora = new Hora(15,39,50);
 
-console.log(hora.getHora());
-console.log(hora.getMinuto());
-console.log(hora.getSegundo());
+console.log(hora.Hora);
+console.log(hora.Minuto);
+console.log(hora.Segundo);
 console.log(hora.horaFormatada());
