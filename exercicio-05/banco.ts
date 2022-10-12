@@ -1,17 +1,25 @@
 export class Conta{
-    numero: string
-    saldo: number
+    private numero: string
+    private saldo: number
 
     constructor(numero: string, saldo: number){
         this.numero = numero
         this.saldo = saldo
     }
 
-    depositar(valor: number): void{
+    public getNumero(): string{
+        return this.numero;
+    }
+    
+    public getSaldo(): number{
+        return this.saldo;
+    }
+
+    public depositar(valor: number): void{
         this.saldo += valor
     }
 
-    sacar(valor: number): boolean{
+    public sacar(valor: number): boolean{
         if(this.saldo - valor >= 0){
             this.saldo -= valor
             return true
@@ -20,17 +28,17 @@ export class Conta{
         return false
     }
 
-    transferencia(contaDestino: Conta, valor: number): void{
+    public transferencia(contaDestino: Conta, valor: number): void{
         this.sacar(valor);
         contaDestino.depositar(valor);
     }
 }
 
 export class Banco{
-    contas: Conta[] = []
+    private contas: Conta[] = []
 
     inserir(c: Conta): void{
-        let conta: Conta = this.consultar(c.numero)
+        let conta: Conta = this.consultar(c.getNumero())
 
         if(conta == null){
             this.contas.push(c)
@@ -39,11 +47,11 @@ export class Banco{
         }
     }
 
-    consultar(numero: string): Conta{
+    public consultar(numero: string): Conta{
         let contaProcurada!: Conta
 
         for(let c of this.contas){
-            if(c.numero == numero){
+            if(c.getNumero() == numero){
                 contaProcurada = c
                 break
             }
@@ -52,11 +60,11 @@ export class Banco{
         return contaProcurada
     }
 
-    consultarIndicie(numero: string): number{
+    private consultarIndicie(numero: string): number{
         let indice = -1
 
         for(let i = 0; i < this.contas.length; i++){
-            if(this.contas[i].numero == numero){
+            if(this.contas[i].getNumero() == numero){
                 indice = i
                 break
             }
@@ -65,8 +73,8 @@ export class Banco{
         return indice
     }
 
-    alterar(c: Conta): void{
-        let indice = this.consultarIndicie(c.numero)
+    public alterar(c: Conta): void{
+        let indice = this.consultarIndicie(c.getNumero())
 
         if(indice != -1){
             this.contas[indice] = c
@@ -74,7 +82,7 @@ export class Banco{
     }
 
 
-    depositar(numero: string, valor: number): void{
+    public depositar(numero: string, valor: number): void{
         let conta: Conta = this.consultar(numero)
 
         if(conta != null){
@@ -82,7 +90,7 @@ export class Banco{
         }
     }
 
-    sacar(numero: string, valor: number): boolean{
+    public sacar(numero: string, valor: number): boolean{
         let conta: Conta = this.consultar(numero)
 
         if(conta != null){
@@ -93,7 +101,7 @@ export class Banco{
         return false
     }
 
-    transferir(numCredito: string, numDebito: string, valor: number): void{
+    public transferir(numCredito: string, numDebito: string, valor: number): void{
         let conta1: Conta = this.consultar(numCredito)
         let conta2: Conta = this.consultar(numDebito)
 
@@ -102,27 +110,27 @@ export class Banco{
         }
     }
 
-    QuantidadeContas(): number{
+    public QuantidadeContas(): number{
         return this.contas.length
     }
 
-    depositoTotal(): number{
+    public depositoTotal(): number{
         let soma = 0
 
         for(let i = 0; i < this.contas.length; i++){
-            soma += this.contas[i].saldo
+            soma += this.contas[i].getSaldo()
         }
 
         return soma
     }
 
-    mediaSaldos(): number{
+    public mediaSaldos(): number{
         return this.depositoTotal()/this.QuantidadeContas()
     }
 
-    excluirConta(numero: string): void{
+    public excluirConta(numero: string): void{
         for(let i = 0; i < this.contas.length; i++){
-            if(this.contas[i].numero == numero){
+            if(this.contas[i].getNumero() == numero){
                 this.contas.splice(i, 1)
                 break
             }
