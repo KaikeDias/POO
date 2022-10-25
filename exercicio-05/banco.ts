@@ -29,6 +29,41 @@ export class Conta{
     }
 }
 
+export class Poupanca extends Conta{
+    private _taxaJuros: number;
+
+    constructor(numero: string, saldo: number, _taxaJuros: number){
+        super(numero,saldo);
+        this._taxaJuros = _taxaJuros;
+    }
+
+    public renderJuros(): void{
+        this.depositar(this.Saldo * (this._taxaJuros/100));
+    }
+
+    get taxaJuros(): number{
+        return this._taxaJuros;
+    }
+}
+
+export class ContaImposto extends Conta{
+    private _taxaDesconto: number;
+
+    constructor(numero: string, saldo: number, _taxaDesconto: number){
+        super(numero, saldo);
+        this._taxaDesconto = _taxaDesconto;
+    }
+
+    get taxaDesconto(): number{
+        return this._taxaDesconto
+    }
+
+    debitar(valor: number): void{
+        let total = valor + valor * (this._taxaDesconto / 100);
+        super.sacar(total);
+    }
+}
+
 export class Banco{
     private contas: Conta[] = []
 
@@ -89,8 +124,12 @@ export class Banco{
         let conta: Conta = this.consultar(numero)
 
         if(conta != null){
-            conta.sacar(valor)
-            return true
+            if(conta instanceof ContaImposto){
+                conta.debitar(valor);
+            }else{
+                conta.sacar(valor);
+            }
+            return true;
         }
 
         return false
@@ -129,6 +168,14 @@ export class Banco{
                 this.contas.splice(i, 1)
                 break
             }
+        }
+    }
+
+    public renderJuros(numero: string): void{
+        let conta: Conta = this.consultar(numero);
+
+        if(conta instanceof Poupanca){
+            conta.renderJuros();
         }
     }
 }

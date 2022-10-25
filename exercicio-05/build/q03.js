@@ -9,7 +9,7 @@ do {
     console.log('Bem vindo\nDigite uma opção:');
     console.log('1 - Cadastrar 2 - Consultar 3 - Sacar\n' +
         '4 - Depositar 5 - Excluir 6 - Transferir\n' +
-        '7 – Totalizações' +
+        '7 – Totalizações 8 - Render Juros' +
         '0 - Sair\n');
     opcao = input("Opção: ");
     switch (opcao) {
@@ -34,6 +34,9 @@ do {
         case '7':
             totalizacoes();
             break;
+        case '8':
+            renderJuros();
+            break;
     }
     continuar = input("\nPress <ENTER> to continue");
     console.clear();
@@ -41,9 +44,18 @@ do {
 function inserir() {
     console.log("\nCadastrar conta\n");
     let numero = input('Digite o número da conta: ');
-    let conta;
-    conta = new banco_1.Conta(numero, 0);
-    b.inserir(conta);
+    let tipo = input('Tipo de conta (normal,poupanca): ');
+    if (tipo == 'poupanca') {
+        let taxaJuros = Number(input('Digite a taxa de juros: '));
+        let conta;
+        conta = new banco_1.Poupanca(numero, 0, taxaJuros);
+        b.inserir(conta);
+    }
+    else if (tipo == 'normal') {
+        let conta;
+        conta = new banco_1.Conta(numero, 0);
+        b.inserir(conta);
+    }
 }
 function consultar() {
     console.log("\nConsultar Conta\n");
@@ -77,4 +89,9 @@ function transferir() {
 function totalizacoes() {
     console.log("\nTotalizações\n");
     console.log(b.depositoTotal());
+}
+function renderJuros() {
+    console.log('\nRender Juros\n');
+    let numero = input('Digite o numero da conta que vai render juros: ');
+    b.renderJuros(numero);
 }

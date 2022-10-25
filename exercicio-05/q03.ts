@@ -1,5 +1,5 @@
 var input = require('prompt-sync')()
-import {Conta, Banco} from './banco'
+import {Conta, Banco, Poupanca} from './banco'
 
 let b: Banco = new Banco()
 let opcao: string = ''

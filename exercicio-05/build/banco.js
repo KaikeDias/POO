@@ -1,10 +1,16 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Banco = exports.Conta = void 0;
+exports.Banco = exports.Poupanca = exports.Conta = void 0;
 class Conta {
     constructor(numero, saldo) {
         this.numero = numero;
         this.saldo = saldo;
+    }
+    get Numero() {
+        return this.numero;
+    }
+    get Saldo() {
+        return this.saldo;
     }
     depositar(valor) {
         this.saldo += valor;
@@ -22,12 +28,25 @@ class Conta {
     }
 }
 exports.Conta = Conta;
+class Poupanca extends Conta {
+    constructor(numero, saldo, _taxaJuros) {
+        super(numero, saldo);
+        this._taxaJuros = _taxaJuros;
+    }
+    renderJuros() {
+        this.depositar(this.Saldo * (this._taxaJuros / 100));
+    }
+    get taxaJutos() {
+        return this._taxaJuros;
+    }
+}
+exports.Poupanca = Poupanca;
 class Banco {
     constructor() {
         this.contas = [];
     }
     inserir(c) {
-        let conta = this.consultar(c.numero);
+        let conta = this.consultar(c.Numero);
         if (conta == null) {
             this.contas.push(c);
         }
@@ -38,7 +57,7 @@ class Banco {
     consultar(numero) {
         let contaProcurada;
         for (let c of this.contas) {
-            if (c.numero == numero) {
+            if (c.Numero == numero) {
                 contaProcurada = c;
                 break;
             }
@@ -48,7 +67,7 @@ class Banco {
     consultarIndicie(numero) {
         let indice = -1;
         for (let i = 0; i < this.contas.length; i++) {
-            if (this.contas[i].numero == numero) {
+            if (this.contas[i].Numero == numero) {
                 indice = i;
                 break;
             }
@@ -56,7 +75,7 @@ class Banco {
         return indice;
     }
     alterar(c) {
-        let indice = this.consultarIndicie(c.numero);
+        let indice = this.consultarIndicie(c.Numero);
         if (indice != -1) {
             this.contas[indice] = c;
         }
@@ -88,7 +107,7 @@ class Banco {
     depositoTotal() {
         let soma = 0;
         for (let i = 0; i < this.contas.length; i++) {
-            soma += this.contas[i].saldo;
+            soma += this.contas[i].Saldo;
         }
         return soma;
     }
@@ -97,10 +116,16 @@ class Banco {
     }
     excluirConta(numero) {
         for (let i = 0; i < this.contas.length; i++) {
-            if (this.contas[i].numero == numero) {
+            if (this.contas[i].Numero == numero) {
                 this.contas.splice(i, 1);
                 break;
             }
+        }
+    }
+    renderJuros(numero) {
+        let conta = this.consultar(numero);
+        if (conta instanceof Poupanca) {
+            conta.renderJuros();
         }
     }
 }
