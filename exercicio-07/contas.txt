@@ -1,0 +1,3 @@
+Normal;1;10;10
+Poupanca;2;0;10
+Imposto;3;0;10
