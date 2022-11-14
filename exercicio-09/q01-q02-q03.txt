@@ -1,0 +1,10 @@
+1. Podemos instanciar classes abstratas? Justifique.
+    R- Não, porque as classes abstratas servem apenas como modelo para as classes que herdarão dela.
+
+2. Explique o que é necessário para que a compilação da ClasseConcreta ocorra
+sem erros:
+    R- Será necessário implementar o metodo abstrato imprimaAlgo().
+
+3. Se uma classe que herda de uma abstrata e não implementa os seus métodos, o
+que ocorre?
+    R- Aparecerá esse erro: "Non-abstract class 'Gerente' does not implement inherited abstract member 'getSalario' from class 'Funcionario'."
