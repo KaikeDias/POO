@@ -1,32 +1,55 @@
-export class Conta{
+import {ContaExistenteError, ContaInexistenteError, SaldoInsuficienteError} from '../exercicio-08/q01'
+import {ValorInvalidoError} from '../exercicio-08/q04'
+import {PoupancaInvalida} from '../exercicio-08/q06'
 
-    constructor(private numero: string, private saldo: number){}
+
+export class Conta{
+    private _saldo: number = 0
+    constructor(private numero: string, saldoInicial: number){
+        this.depositar(saldoInicial)
+    }
 
     get Numero(): string{
         return this.numero;
     }
     
     get Saldo(): number{
-        return this.saldo;
+        return this._saldo;
+    }
+    
+    private _validarValor(valor: number): boolean {
+        if(valor >= 0) {
+            return true
+        }else {
+            return false
+        }
     }
 
     public depositar(valor: number): void{
-        this.saldo += valor
-    }
-
-    public sacar(valor: number): boolean{
-        if(this.saldo - valor >= 0){
-            this.saldo -= valor
-            return true
+        if(this._validarValor(valor)) {
+            this._saldo += valor;
+        }else {
+            throw new ValorInvalidoError('Valor inválido');
         }
-
-        return false
+    }
+    
+    public sacar(valor: number){
+        if(this._validarValor(valor)) {
+            if(this._saldo - valor >= 0){
+                this._saldo -= valor
+            }else {
+                throw new SaldoInsuficienteError('Saldo insuficiente');
+            }
+        }else {
+            throw new ValorInvalidoError('Valor inválido');
+        }
     }
 
     public transferencia(contaDestino: Conta, valor: number): void{
         this.sacar(valor);
         contaDestino.depositar(valor);
     }
+
 }
 
 export class Poupanca extends Conta{
@@ -68,12 +91,15 @@ export class Banco{
     private contas: Conta[] = []
 
     inserir(c: Conta): void{
-        let conta: Conta = this.consultar(c.Numero)
-
-        if(conta == null){
-            this.contas.push(c)
-        }else{
-            console.log("Já existe uma conta com esse numero")
+        try {
+            let conta: Conta = this.consultar(c.Numero)
+            throw new ContaExistenteError('A conta ja existe')
+        } catch (e: any) {
+            if(e instanceof ContaInexistenteError) {
+                this.contas.push(c)
+            }else {
+                console.log(e.message)
+            }
         }
     }
 
@@ -83,11 +109,11 @@ export class Banco{
         for(let c of this.contas){
             if(c.Numero == numero){
                 contaProcurada = c
-                break
+                return contaProcurada;
             }
         }
 
-        return contaProcurada
+        throw new ContaInexistenteError('Conta inexistente');    
     }
 
     private consultarIndicie(numero: string): number{
@@ -100,48 +126,41 @@ export class Banco{
             }
         }
 
+        if(indice == -1) {
+            throw new ContaInexistenteError('Conta inexistente');
+        }
+
         return indice
     }
 
     public alterar(c: Conta): void{
         let indice = this.consultarIndicie(c.Numero)
 
-        if(indice != -1){
-            this.contas[indice] = c
-        }
+        this.contas[indice] = c
     }
 
 
     public depositar(numero: string, valor: number): void{
         let conta: Conta = this.consultar(numero)
 
-        if(conta != null){
-            conta.depositar(valor)
-        }
+        conta.depositar(valor)
     }
 
-    public sacar(numero: string, valor: number): boolean{
+    public sacar(numero: string, valor: number): void{
         let conta: Conta = this.consultar(numero)
 
-        if(conta != null){
-            if(conta instanceof ContaImposto){
-                conta.debitar(valor);
-            }else{
-                conta.sacar(valor);
-            }
-            return true;
+        if(conta instanceof ContaImposto){
+            conta.debitar(valor);
+        }else{
+            conta.sacar(valor);
         }
-
-        return false
     }
 
     public transferir(numCredito: string, numDebito: string, valor: number): void{
         let conta1: Conta = this.consultar(numCredito)
         let conta2: Conta = this.consultar(numDebito)
 
-        if(conta1 != null && conta2 != null){
-            conta2.transferencia(conta1, valor)
-        }
+        conta2.transferencia(conta1, valor)
     }
 
     public QuantidadeContas(): number{
@@ -176,6 +195,8 @@ export class Banco{
 
         if(conta instanceof Poupanca){
             conta.renderJuros();
+        }else {
+            throw new PoupancaInvalida('A conta não é do tipo Poupança');
         }
     }
 }
